@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101116">
+  <meta name="description" content="Your personal 90-day discipline and habit tracker.">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <title>90-Day Discipline</title>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand"><div class="brand-mark">90</div><div><p class="eyebrow">YOUR PERSONAL SYSTEM</p><h1>Discipline Tracker</h1></div></div>
+      <button id="installBtn" class="button button-quiet hidden" type="button">＋ Install app</button>
+    </header>
+
+    <section class="welcome panel">
+      <div class="welcome-copy"><p class="eyebrow" id="todayLabel">YOUR DAY, YOUR FUTURE</p><h2>Small steps.<br><span>Serious progress.</span></h2><p>Build your future one focused day at a time. Your progress is saved on this device.</p></div>
+      <div class="day-ring" aria-label="Daily progress"><div><strong id="dailyPercent">0%</strong><span>today</span></div></div>
+    </section>
+
+    <nav class="tabs" aria-label="Main sections">
+      <button class="tab active" data-tab="today">Today</button><button class="tab" data-tab="plan">90-day plan</button><button class="tab" data-tab="review">Weekly review</button><button class="tab" data-tab="focus">Focus timer</button>
+    </nav>
+
+    <main>
+      <section id="view-today" class="view active">
+        <div class="section-heading"><div><p class="eyebrow">DAILY EXECUTION</p><h2>Today's checklist</h2></div><span class="pill" id="taskCount">0 / 0 done</span></div>
+        <div class="quote panel"><span class="quote-mark">“</span><p id="dailyQuote">You don't need to feel ready. Start with the next useful action.</p><span class="quote-credit">YOUR REMINDER</span></div>
+        <div id="habitsList" class="habit-list"></div>
+        <div class="section-heading schedule-heading"><div><p class="eyebrow">PLAN YOUR HOURS</p><h2>Daily schedule</h2></div><span class="small-muted">Kenya · EAT</span></div>
+        <div class="panel schedule-panel"><p class="notice">On workdays, move morning study blocks to the afternoon. Keep sleep and recovery protected.</p><div id="scheduleList" class="schedule-list"></div></div>
+        <div class="section-heading"><div><p class="eyebrow">PROTECT YOUR ATTENTION</p><h2>Screen-time boundaries</h2></div></div>
+        <div class="panel screen-panel">
+          <label class="field-label" for="socialMinutes">Social media limit (minutes/day)</label><div class="inline-control"><input id="socialMinutes" type="number" min="0" max="600" step="5" value="30"><button id="saveScreenLimit" class="button button-secondary">Save limit</button></div>
+          <label class="field-label" for="screenActual">Today's actual social media minutes</label><div class="inline-control"><input id="screenActual" type="number" min="0" max="1440" step="5" placeholder="Enter minutes used"><button id="saveScreenActual" class="button button-secondary">Log time</button></div>
+          <p id="screenStatus" class="status-text" aria-live="polite">Choose a limit and log your actual time honestly.</p>
+          <p class="small-muted">Tip: turn off nonessential notifications and keep your phone away during focus blocks.</p>
+        </div>
+      </section>
+
+      <section id="view-plan" class="view">
+        <div class="section-heading"><div><p class="eyebrow">YOUR 90-DAY JOURNEY</p><h2>Progress overview</h2></div><span class="pill" id="dayNumber">Day 1 of 90</span></div>
+        <div class="panel progress-panel"><div class="progress-meta"><span>Journey completed</span><strong id="journeyPercent">0%</strong></div><div class="progress-track"><div id="journeyBar" class="progress-fill"></div></div><div class="stats-grid"><div class="stat"><strong id="daysLogged">0</strong><span>Days with activity</span></div><div class="stat"><strong id="tasksDoneTotal">0</strong><span>Tasks completed</span></div><div class="stat"><strong id="currentStreak">0</strong><span>Day streak</span></div></div></div>
+        <div id="phaseCards" class="phase-list"></div>
+        <div class="section-heading"><div><p class="eyebrow">KEEP IT PRACTICAL</p><h2>Weekly targets</h2></div></div>
+        <div class="panel targets-panel"><div class="target-row"><span>Forex study + review</span><strong>5 sessions</strong></div><div class="target-row"><span>English + reading</span><strong>Daily</strong></div><div class="target-row"><span>Programming / AI practice</span><strong>4 sessions</strong></div><div class="target-row"><span>Business / world knowledge</span><strong>2 sessions</strong></div><div class="target-row"><span>Gym / planned recovery</span><strong>3–4 sessions</strong></div><div class="target-row"><span>Screen-time log</span><strong>7 days</strong></div></div>
+        <div class="panel start-panel"><p class="eyebrow">START DATE</p><label class="field-label" for="startDate">Your 90-day plan began on</label><div class="inline-control"><input id="startDate" type="date"><button id="saveStartDate" class="button button-secondary">Save date</button></div><p class="small-muted">Changing this date adjusts your day number and phase. Your saved daily checklists remain on their original dates.</p></div>
+        <div class="panel export-panel"><div><h3>Your data belongs to you</h3><p class="small-muted">Export a backup or import it on this browser later. Clearing browser data may remove your records.</p></div><div class="button-row"><button id="exportData" class="button button-secondary">Export backup</button><label class="button button-secondary file-button">Import backup<input id="importData" type="file" accept="application/json,.json" hidden></label><button id="resetData" class="button button-danger">Reset all data</button></div></div>
+      </section>
+
+      <section id="view-review" class="view">
+        <div class="section-heading"><div><p class="eyebrow">LEARN, DON'T JUDGE</p><h2>Weekly review</h2></div></div>
+        <div class="panel review-panel"><p class="small-muted">Take 10–15 minutes every Sunday. Be honest about what worked and what needs to change.</p>
+          <label class="field-label" for="reviewWeek">Review week</label><input id="reviewWeek" type="week">
+          <label class="field-label" for="reviewForex">What did I learn about forex this week?</label><textarea id="reviewForex" rows="3" placeholder="One concept, one market lesson, or what my journal showed..."></textarea>
+          <label class="field-label" for="reviewWins">What went well?</label><textarea id="reviewWins" rows="3" placeholder="Small wins count..."></textarea>
+          <label class="field-label" for="reviewChallenge">What distracted me or got in the way?</label><textarea id="reviewChallenge" rows="3" placeholder="Be honest, not harsh..."></textarea>
+          <label class="field-label" for="reviewNext">My three priorities for next week</label><textarea id="reviewNext" rows="3" placeholder="1. ...&#10;2. ...&#10;3. ..."></textarea>
+          <button id="saveReview" class="button button-primary full-width">Save weekly review</button><p id="reviewStatus" class="status-text" aria-live="polite"></p>
+        </div>
+        <div class="section-heading"><div><p class="eyebrow">PAST NOTES</p><h2>Saved reviews</h2></div></div><div id="savedReviews" class="saved-reviews"></div>
+      </section>
+
+      <section id="view-focus" class="view">
+        <div class="section-heading"><div><p class="eyebrow">ONE THING AT A TIME</p><h2>Focus timer</h2></div></div>
+        <div class="panel timer-panel"><div class="timer-ring"><div><strong id="timerDisplay">25:00</strong><span id="timerMode">FOCUS SESSION</span></div></div><div class="timer-presets"><button class="preset active" data-minutes="25" data-mode="focus">25 min focus</button><button class="preset" data-minutes="50" data-mode="focus">50 min focus</button><button class="preset" data-minutes="5" data-mode="break">5 min break</button><button class="preset" data-minutes="10" data-mode="break">10 min break</button></div><div class="button-row timer-actions"><button id="startTimer" class="button button-primary">Start focus</button><button id="pauseTimer" class="button button-secondary" disabled>Pause</button><button id="resetTimer" class="button button-quiet">Reset</button></div><p id="timerMessage" class="status-text" aria-live="polite">Choose one task. Put your phone away. Begin.</p></div>
+        <div class="panel focus-ideas"><h3>Good focus tasks</h3><ul><li>Read an economic calendar and explain the likely impact.</li><li>Backtest one setup and record the result.</li><li>Build one small feature in your coding project.</li><li>Read a few pages and write a short summary.</li></ul></div>
+      </section>
+    </main>
+    <footer><p>Built for your future. Progress over perfection.</p><p class="small-muted">Offline-ready after first load · Data stored locally on this device</p></footer>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
